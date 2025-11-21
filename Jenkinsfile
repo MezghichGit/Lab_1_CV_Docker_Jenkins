@@ -2,7 +2,7 @@ pipeline {
       agent any
       stages{
         // Création image
-        stage('Création de  image docker') {
+        stage('Etape 1 Création de  image docker') {
             steps {
                 sh 'docker build -t cv_mezghich .'
             }
