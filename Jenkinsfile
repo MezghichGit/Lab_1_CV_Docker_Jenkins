@@ -5,8 +5,7 @@ pipeline {
           // Création image
         stage('Etape 0 stop and delete mon container') {
             steps {
-                sh 'docker stop cv_mezghich_cont'
-                sh 'docker rm cv_mezghich_cont'
+                sh 'docker rm -f cv_mezghich_cont  || true'
             }
             post {
                 success {
