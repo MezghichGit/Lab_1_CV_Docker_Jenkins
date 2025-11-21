@@ -26,7 +26,7 @@ pipeline {
         // Création image
         stage('Etape 1 Création de  image docker') {
             steps {
-                sh 'docker build -t cv_mezghich .'
+                sh 'docker build -t cv_mezghich:v2 .'
             }
             post {
                 success {
@@ -41,7 +41,7 @@ pipeline {
           // Création image
         stage('Etape 2 Lancer un container de cette image') {
             steps {
-                sh 'docker run -d -p 8081:80 --name cv_mezghich_cont cv_mezghich'
+                sh 'docker run -d -p 8081:80 --name cv_mezghich_cont cv_mezghich:v2'
             }
             post {
                 success {
@@ -55,9 +55,9 @@ pipeline {
            stage('Etape 3 : Tag and push image to dockerhub de aminesip') {
                      steps {
                          echo "tag and push image ..."
-                         sh "docker tag cv_mezghich aminesip/cv_mezghich"
+                         sh "docker tag cv_mezghich:v2 aminesip/cv_mezghich:v2"
                          sh "docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW"
-                         sh "docker push aminesip/cv_mezghich"
+                         sh "docker push aminesip/cv_mezghich:v2"
                          sh "docker logout"
                      }
                      post {
